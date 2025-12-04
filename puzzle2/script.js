@@ -20,7 +20,7 @@ function part1() {
 					const seq2 = stringified.substring(mid)
 
 					if (seq1 === seq2) {
-						addedIDs += Math.round(j)
+						addedIDs += j
 					}
 				}
 			}
@@ -30,7 +30,7 @@ function part1() {
 	})
 }
 
-// part1()
+part1()
 
 function part2() {
 	fs.readFile('./puzzleinput.txt', (err, data) => {
@@ -43,15 +43,14 @@ function part2() {
 		let addedIDs = 0
 		for (let i = 0; i < ranges.length; i++) {
 			const idPair = ranges[i].split('-')
-												//type coercion in action hahaha ||||| 5757673432 ||| 0000000
+												//type coercion in action hahaha
 			for (let j = Math.round(idPair[0]); j <= idPair[1]; j++) {
 				const stringified = j + ''
 				
-				if(checkPatterns(stringified)) {
-					addedIDs += Math.round(j)
-				} else {
-					break
+				if (stringified.length > 1) {
+					checkPatterns(stringified) && (addedIDs += j)
 				}
+				
 			}
 		}
 		console.timeEnd('invalid-id-time')
@@ -68,9 +67,8 @@ function checkPatterns(stringified) {
 			divisibleBy.push(i + 2)
 		}
 	}
-	console.log(divisibleBy, divisibleBy.length, 'items.')
 
-	if (divisibleBy.length !== 0) {
+	if (divisibleBy.length !== 0 && length > 3) {
 		//check for an answer through every divisor
 		for (let i = 0; i < divisibleBy.length;  i++) {
 			let offset = 0
@@ -78,18 +76,12 @@ function checkPatterns(stringified) {
 			while (status === 0) {
 				//check an answer on the ith divisor
 				for (let j = 0; j < length - divisibleBy[i]; j++) {
-					console.log(stringified[j + offset])
-					console.log(stringified[j + divisibleBy[i] + offset])
-					if (stringified[offset] !== stringified[divisibleBy[i] + offset]) {
+					if (stringified[j + offset] !== stringified[j + divisibleBy[i] + offset]) {
 						status = -1
 						break
 					}
 				}
-				if (status !== -1) {
-					status = 1
-				} else {
-					offset += divisibleBy[i]
-				}
+				status !== -1 ? status = 1 : offset += divisibleBy[i]
 				
 			}
 			if (status === 1) {
@@ -97,14 +89,15 @@ function checkPatterns(stringified) {
 			}
 		}
 	}
-	let previous;
-	for (let i = 0; i < length; i++) {
-		previous = stringified[i]
-		if (stringified[i] !== previous) {
+	//check for ones
+	let indexPrev = 0
+	for (let i = 0; i < (length - 1); i++) {
+		if (stringified[i + 1] !== stringified[indexPrev]) {
 			return false
 		}
+		indexPrev = i + 1
+
 	}
-	
 	return true
 }
 

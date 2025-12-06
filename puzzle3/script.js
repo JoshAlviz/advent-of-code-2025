@@ -8,7 +8,7 @@ function part1() {
 		}
 		const input = data.toString()
 		const banks = input.split('\n')
-		let totalOutputJoltage =0
+		let totalOutputJoltage = 0
 		for (let i = 0; i < banks.length; i++) {
 			totalOutputJoltage += findLargest(banks[i])
 		}
@@ -34,3 +34,43 @@ function findLargest(set) {
 }
 
 part1()
+
+function part2() {
+	fs.readFile('./puzzleinput.txt', (err, data) => {
+		console.time('largest-joltage')
+		if (err) {
+			console.log(err)
+		}
+		const input = data.toString()
+		const banks = input.split('\n')
+		let totalOutputJoltage = 0
+		
+		for (let i = 0; i < banks.length; i++) {
+			const set = banks[i].trim()
+			let index = 0
+			let construct = ''
+			for (let j = 0; j < 12; j++) {
+				let largest = 0
+				let indexOfLargest = 0
+				for (let k = index; k <= set.length; k++) {
+					if (Math.round(set[k]) > largest) {
+						let leftOver = set.substring(k)
+						if (leftOver.length + j >= 12) {
+							largest = Math.round(set[k])
+							indexOfLargest = k
+						} else {
+							break
+						}
+					}
+				}
+				construct += largest
+				index = indexOfLargest + 1
+			}
+			totalOutputJoltage += Math.round(construct)
+		}
+		console.timeEnd('largest-joltage')
+		console.log('total output joltage:', totalOutputJoltage)
+	})
+}
+
+part2()

@@ -1,5 +1,5 @@
 //kay, I gave in and used ChatGPT to help me understand the problem..
-//specifially, what does it mean when it says eight adjecent positions?
+//specifially, what does it mean when it says eight adjacent positions?
 //never would've thought that it would be all surrounding neighbors,
 //including diagonals. But didn't used GPT for solving the problem itself,
 //nor looked at any other code proposed, so this is probably eligible..

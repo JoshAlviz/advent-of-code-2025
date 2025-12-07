@@ -11,7 +11,6 @@ function part1() {
 		let addedIDs = 0
 		for (let i = 0; i < ranges.length; i++) {
 			const idPair = ranges[i].split('-')
-												//type coercion in action hahaha
 			for (let j = Math.round(idPair[0]); j <= idPair[1]; j++) {
 				const stringified = j + ''
 				if (stringified.length % 2 === 0) {
@@ -43,7 +42,6 @@ function part2() {
 		let addedIDs = 0
 		for (let i = 0; i < ranges.length; i++) {
 			const idPair = ranges[i].split('-')
-												//type coercion in action hahaha
 			for (let j = Math.round(idPair[0]); j <= idPair[1]; j++) {
 				const stringified = j + ''
 				

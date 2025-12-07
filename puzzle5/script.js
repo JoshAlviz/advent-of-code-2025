@@ -83,4 +83,3 @@ function countExclusiveRange(start, end, countedRanges) {
 }
 
 part2()
-

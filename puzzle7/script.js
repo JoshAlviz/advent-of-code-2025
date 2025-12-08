@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 function part1() {
-	fs.readFile('./test.txt', (err, data) => {
+	fs.readFile('./puzzleinput.txt', (err, data) => {
 		console.time('tachyon-beam')
 		if (err){
 			console.log(err)
@@ -46,8 +46,10 @@ function findIndexOfS(manifoldStart) {
 
 function checkAffected(index, indexesOfSplitters) {
 	for (let i = indexesOfSplitters.length - 1; i >= 0; i--) {
-		if (index === indexesOfSplitters[i] + 1 || index === indexesOfSplitters[i] - 1) {
+		if (index + 1 === indexesOfSplitters?.[i] || index - 1 === indexesOfSplitters?.[i]) {
 			return true
+		} else if (index === indexesOfSplitters?.[i]){
+			return false
 		}
 	}
 	return false
